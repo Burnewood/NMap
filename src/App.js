@@ -25,13 +25,20 @@ class App extends Component {
     this.closeAllMarkers();
     marker.isOpen = true;
     this.setState({markers:Object.assign(this.state.markers,marker)});
+
+    const venue =  this.state.venues.find(venue => venue.id === marker.id);
+    SquareAPI.getVenueDetails(marker.id).then(res=>{
+      const newVenue = Object.assign(venue, res.response.venue);
+      this.setState({venues:Object.assign(this.state.venues, newVenue)});
+      console.log(newVenue);
+    });
   };
 
   componentDidMount(){
     SquareAPI.search({
-      near: "Scarborough,ON",
-      query: "escaperoom",
-      limit: 10
+      near: "Whitby,ON",
+      query: "comic",
+      limit: 8
     }).then(results =>{
       const {venues} = results.response;
       const {center} = results.response.geocode.feature.geometry;
@@ -40,7 +47,8 @@ class App extends Component {
           lat:venue.location.lat,
           lng:venue.location.lng,
           isOpen:false,
-          isVisible:true
+          isVisible:true,
+          id:venue.id
         };
       });
       this.setState({venues,center,markers});
