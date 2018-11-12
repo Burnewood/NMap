@@ -12,7 +12,7 @@ class App extends Component {
       venues:[],
       markers:[],
       center:[],
-      zoom:11,
+      zoom:13,
       updateSuperState: obj=>{
         this.setState(obj);
       }
@@ -45,8 +45,8 @@ class App extends Component {
   componentDidMount(){
     SquareAPI.search({
       near: "Whitby,ON",
-      query: "comic",
-      limit: 8
+      query: "burger",
+      limit: 10
     }).then(results =>{
       const {venues} = results.response;
       const {center} = results.response.geocode.feature.geometry;

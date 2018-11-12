@@ -3,13 +3,16 @@
 import React,{Component} from "react";
 import { withScriptjs, withGoogleMap, GoogleMap, Marker,InfoWindow } from "react-google-maps";
 
+const mapStyles = require("./mapStyles.json");
 const MyMapComponent = withScriptjs(
   withGoogleMap(props =>(
   <GoogleMap
-    defaultZoom={13}
+    defaultZoom={14}
     zoom={props.zoom}
-    defaultCenter={{ lat: 43.838413, lng: -79.086761 }}
+    defaultCenter={{lat: 43.897545, lng: -78.942932}}
+    defaultOptions={{ styles: mapStyles }}
   >
+
     {props.markers &&
       props.markers.filter(marker=>marker.isVisible).map((marker,idx)=>{
         const venueInfo = props.venues.find(venue => venue.id===marker.id);
@@ -40,7 +43,7 @@ export default class Map extends Component{
       {...this.props}
       googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAjtvbvM08TzCn66vzA4eD1W6HSLS1lOZk"
       loadingElement={<div style={{ height: `100%` }} />}
-      containerElement={<div style={{ height: `100%`, width:`75%` }} />}
+      containerElement={<div style={{ height: `100%`, width:`100%` }} />}
       mapElement={<div style={{ height: `100%` }} />}
     />)
   }
