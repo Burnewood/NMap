@@ -1,5 +1,6 @@
 import React,{Component} from "react";
 import VenueList from './venueList';
+import { slide as Menu } from 'react-burger-menu';
 
 export default class SideBar extends Component{
   constructor(){
@@ -9,7 +10,8 @@ export default class SideBar extends Component{
       venues:[]
     };
   }
-  myFunction= (x)=>{
+  showSettings (event){
+    event.preventDefault();
   };
 
   handleFilterVenues= ()=>{
@@ -37,13 +39,13 @@ export default class SideBar extends Component{
   };
   render(){
     return(
-    <nav className="sidebar">
+    <Menu className="sidebar" width={200}>
         <input type={"search"} id={"search"} placeholder={"Filter Locations"} onChange={this.handleChange}/>
         <VenueList
         {...this.props}
         venues={this.handleFilterVenues()}
         handleListItemClick={this.props.handleListItemClick}/>
-    </nav>
+    </Menu>
     )
   }
 }
