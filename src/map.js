@@ -10,7 +10,14 @@ const MyMapComponent = withScriptjs(
     defaultZoom={14}
     zoom={props.zoom}
     defaultCenter={{lat: 43.897545, lng: -78.942932}}
-    defaultOptions={{ styles: mapStyles }}
+    defaultOptions={{ styles: mapStyles,
+      streetViewControl: false,
+      scaleControl: false,
+      mapTypeControl: false,
+      panControl: false,
+      zoomControl: false,
+      rotateControl: false,
+      fullscreenControl: false }}
   >
 
     {props.markers &&

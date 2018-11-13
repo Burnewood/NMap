@@ -64,16 +64,6 @@ body{
   background-image:  url("./hexWall.png");
 }
 
-/* Morph shape necessary with bubble or elastic */
-.bm-morph-shape {
-  fill: #373a47;
-}
-
-/* Individual item */
-.bm-item {
-  display: inline-block;
-}
-
 /* Styling of overlay */
 .bm-overlay {
   background: rgba(255,255,255, 0.1) !important;
