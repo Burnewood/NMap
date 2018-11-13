@@ -9,6 +9,9 @@ export default class SideBar extends Component{
       venues:[]
     };
   }
+  myFunction= (x)=>{
+  };
+
   handleFilterVenues= ()=>{
     if(this.state.query.trim()!== ""){
       const venues = this.props.venues.filter(venue => venue.name
@@ -33,12 +36,14 @@ export default class SideBar extends Component{
     this.props.updateSuperState({markers});
   };
   render(){
-    return(<div className="sidebar">
+    return(
+    <nav className="sidebar">
         <input type={"search"} id={"search"} placeholder={"Filter Locations"} onChange={this.handleChange}/>
         <VenueList
         {...this.props}
         venues={this.handleFilterVenues()}
         handleListItemClick={this.props.handleListItemClick}/>
-    </div>)
+    </nav>
+    )
   }
 }

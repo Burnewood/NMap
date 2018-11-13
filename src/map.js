@@ -22,6 +22,7 @@ const MyMapComponent = withScriptjs(
         position={{ lat: marker.lat, lng: marker.lng }}
          onClick={()=>props.handleMarkerClick(marker)}
          animation={marker.isOpen === true ? google.maps.Animation.BOUNCE : google.maps.Animation.DROP}
+         options={{icon:"http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}}
          >
         {marker.isOpen && venueInfo.bestPhoto &&(
         <InfoWindow>
