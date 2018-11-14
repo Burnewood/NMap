@@ -34,8 +34,10 @@ const MyMapComponent = withScriptjs(
         {marker.isOpen && venueInfo.bestPhoto &&(
         <InfoWindow>
         <React.Fragment>
-        <h1>{venueInfo.name}</h1>
-          <img src={`${venueInfo.bestPhoto.prefix}200x200${venueInfo.bestPhoto.suffix}`} alt={`{venueInfo.name}`}/>
+        <h2>{venueInfo.name}</h2>
+          <p>{venueInfo.location.address}</p>
+          <a href={`${venueInfo.canonicalUrl}`}><img src={`${venueInfo.bestPhoto.prefix}100x100${venueInfo.bestPhoto.suffix}`} alt={`${venueInfo.name}`}/></a>
+          <img style={{width:125, height:10}}src={require('./fs.png')} alt={"Foursquare attribute"}/>
           </React.Fragment>
         </InfoWindow>
       )}

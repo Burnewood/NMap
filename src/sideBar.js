@@ -41,6 +41,7 @@ export default class SideBar extends Component{
     return(
     <Menu className="sidebar" width={200}>
         <input type={"search"} id={"search"} placeholder={"Filter Locations"} onChange={this.handleChange}/>
+        <img src={require('./fs.png')} alt={"Foursquare attribute"}/>
         <VenueList
         {...this.props}
         venues={this.handleFilterVenues()}
