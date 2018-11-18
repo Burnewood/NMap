@@ -31,13 +31,12 @@ const MyMapComponent = withScriptjs(
          animation={marker.isOpen === true ? google.maps.Animation.BOUNCE : google.maps.Animation.DROP}
          options={{icon:"http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}}
          >
-        {marker.isOpen && venueInfo.bestPhoto &&(
+        {marker.isOpen &&(
         <InfoWindow>
         <React.Fragment>
-        <h2 tabindex="4">{venueInfo.name}</h2>
-          <p tabindex="4">{venueInfo.location.address}</p>
-          <a href={`${venueInfo.canonicalUrl}`}><img src={`${venueInfo.bestPhoto.prefix}100x100${venueInfo.bestPhoto.suffix}`} alt={`${venueInfo.name}`}/></a>
-          <img tabindex="4" style={{width:125, height:10}}src={require('./fs.png')} alt={"Foursquare attribute"}/>
+        <h2 tabIndex="4">{venueInfo.name}</h2>
+          <p tabIndex="4">{venueInfo.location.address}</p>
+          <a href={`${venueInfo.canonicalUrl}`}><img tabIndex="4" style={{width:125, height:10}}src={require('./fs.png')} alt={"Foursquare attribute"}/></a>
           </React.Fragment>
         </InfoWindow>
       )}
@@ -51,7 +50,7 @@ export default class Map extends Component{
   render(){
     return(<MyMapComponent
       {...this.props}
-      tabindex="-1"
+      tabIndex="-1"
       googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAjtvbvM08TzCn66vzA4eD1W6HSLS1lOZk"
       loadingElement={<div style={{ height: `100%` }} />}
       containerElement={<div style={{ height: `100%`, width:`100%` }} />}

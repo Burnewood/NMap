@@ -40,8 +40,8 @@ export default class SideBar extends Component{
   render(){
     return(
     <Menu role="Navigation" className="sidebar" width={200}>
-        <input role="Search" tabindex="2" type={"search"} id={"search"} placeholder={"Filter Locations"} onChange={this.handleChange}/>
-        <img tabindex="2" src={require('./fs.png')} alt={"Foursquare attribute"}/>
+        <input role="Search" tabIndex="2" type={"search"} id={"search"} placeholder={"Filter Locations"} onChange={this.handleChange}/>
+        <img tabIndex="2" src={require('./fs.png')} alt={"Foursquare attribute"}/>
         <VenueList
         {...this.props}
         venues={this.handleFilterVenues()}
