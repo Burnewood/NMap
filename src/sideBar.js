@@ -13,7 +13,7 @@ export default class SideBar extends Component{
   showSettings (event){
     event.preventDefault();
   };
-
+/*Change venue names to lowercase for the sake of using the filter search bar, trim available venues by filtered value*/
   handleFilterVenues= ()=>{
     if(this.state.query.trim()!== ""){
       const venues = this.props.venues.filter(venue => venue.name
@@ -23,6 +23,7 @@ export default class SideBar extends Component{
     }
     return this.props.venues;
   };
+  /*Use above filter of venues to filter out visible markers based on same filtered search bar*/
   handleChange = e =>{
     this.setState({query:e.target.value});
     const markers = this.props.venues.map(venue=>{
@@ -38,6 +39,7 @@ export default class SideBar extends Component{
     this.props.updateSuperState({markers});
   };
   render(){
+    /*Inside the sidebar display the filter search bar, a foursquare attribrutation, and the venueList component*/
     return(
     <Menu role="Navigation" className="sidebar" width={200}>
         <input role="Search" tabIndex="2" type={"search"} id={"search"} placeholder={"Filter Locations"} onChange={this.handleChange}/>

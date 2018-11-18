@@ -18,6 +18,7 @@ class App extends Component {
       }
     };
   }
+  /* function to close all open markers (effectively removes the visable infowindow and stops the bounce animation) */
   closeAllMarkers = () =>{
       const markers = this.state.markers.map(marker=>{
         marker.isOpen = false;
@@ -25,28 +26,31 @@ class App extends Component {
       });
       this.setState({markers: Object.assign(this.state.markers,markers)});
   } ;
-
+/* closes all markers upon clicking 1 of them so multiple infowindows do not display at once*/
   handleMarkerClick = marker =>{
     this.closeAllMarkers();
     marker.isOpen = true;
     this.setState({markers:Object.assign(this.state.markers,marker)});
-
+/* gathers information from foursquare api upon clicking the marker, to pass said information to other components*/
     const venue =  this.state.venues.find(venue => venue.id === marker.id);
     SquareAPI.getVenueDetails(marker.id).then(res=>{
       const newVenue = Object.assign(venue, res.response.venue);
       this.setState({venues:Object.assign(this.state.venues, newVenue)});
     });
   };
+  /* allow clicking list items to activate map marker infowindow and animation */
   handleListItemClick = venue =>{
     const marker = this.state.markers.find(marker => marker.id=== venue.id);
     this.handleMarkerClick(marker);
   }
+  /* use foursquare api to search for venues of specified query near specified locaiton*/
   componentDidMount(){
     SquareAPI.search({
       near: "Whitby,ON",
       query: "burger",
       limit: 10
     }).then(results =>{
+        /* provide information from foursquare results for other components to use and display*/
       const {venues} = results.response;
       const {center} = results.response.geocode.feature.geometry;
       const markers = venues.map(venue =>{
@@ -62,6 +66,7 @@ class App extends Component {
       console.log(results);
     });
   }
+  /* render map and sidebar components in section below header */
   render() {
     return (
       <section className="App">

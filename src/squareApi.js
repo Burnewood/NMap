@@ -2,6 +2,7 @@ class Helper {
   static baseURL(){
     return "https://api.foursquare.com/v2";
   }
+  /* api requires developer keys to use any of the fetches */
   static auth(){
     const keys = {
       client_id:"ESNVCPHNDHRKQPZ43NAXAP4Y3SR4CQ3YQLMVUNH3PHXZ2MJV",
@@ -34,6 +35,11 @@ class Helper {
   }
 }
 export default class SquareAPI {
+  /* pass 3 fetch functions for other component usage
+    1 for search function of ventues
+    1 for getting the venue_ID information of the searched venues
+    1 for getting the available photos from the searched venues
+  */
   static search(urlPrams){
     return Helper.simpleFetch("/venues/search","GET",urlPrams);
   }

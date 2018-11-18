@@ -4,6 +4,7 @@ import React,{Component} from "react";
 import { withScriptjs, withGoogleMap, GoogleMap, Marker,InfoWindow } from "react-google-maps";
 
 const mapStyles = require("./mapStyles.json");
+/* Initiate base settings for google map object including base zoom and center point */
 const MyMapComponent = withScriptjs(
   withGoogleMap(props =>(
   <GoogleMap
@@ -19,7 +20,7 @@ const MyMapComponent = withScriptjs(
       rotateControl: false,
       fullscreenControl: false }}
   >
-
+/* Initiate base settings for marker information and provide venue information from foursquare API via an infowindow when the marker is opened by click */
     {props.markers &&
       props.markers.filter(marker=>marker.isVisible).map((marker,idx)=>{
         const venueInfo = props.venues.find(venue => venue.id===marker.id);
