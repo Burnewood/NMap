@@ -13,12 +13,21 @@ Navigate to the directory where you have stored the application then run the fol
 ```
 npm install
 
-npm start
+npm run build
+
+/* may require installing noted npm serve */
+
+serve -s  build
 ```
-This should automatically open a new browser window displaying the application. If the window is closed or does not initially open, go to http://localhost:3000/ in your browser.
+This should automatically open a new browser window displaying the application. If the window is closed or does not initially open, go to http://localhost:5000/ (or the noted address) in your browser.
 
 ## Create React App
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
 ## Content Sources
-Add various used api information here w/ resources used
+This project uses 2 third party APIs for displayed information
+* [Google Maps API](https://cloud.google.com/maps-platform/)
+* [Foursquare Places API](https://developer.foursquare.com/places-api)
+
+This project also sourced information and walkthroughs via a community resource
+* [Forrest Walker](https://www.youtube.com/playlist?list=PL4rQq4MQP1crXuPtruu_eijgOUUXhcUCP)
