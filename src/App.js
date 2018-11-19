@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import './App.css';
 import Map from "./map.js";
@@ -51,8 +50,8 @@ class App extends Component {
       limit: 10
     }).then(results =>{
         /* provide information from foursquare results for other components to use and display*/
-      const {venues} = {results.response != null ? results.response : "Foursquare load issue"};
-      const {center} = {results.response.geocode.feature.geometry != null ? results.response.geocode.feature.geometry : "Foursquare load issue"};
+      const {venues} = (results!= null ? results.response : "Foursquare load issue");
+      const {center} = (results!= null ? results.response.geocode.feature.geometry : "Foursquare load issue");
       const markers = venues.map(venue =>{
         return{
           lat:venue.location.lat,
