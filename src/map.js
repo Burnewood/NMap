@@ -1,79 +1,61 @@
-import React, { Component } from 'react';
-import './App.css';
-import Map from "./map.js";
-import SquareAPI from "./squareApi.js";
-import SideBar from './sideBar';
+/* global google */
 
-class App extends Component {
-  constructor(){
-    super();
-    this.state={
-      venues:[],
-      markers:[],
-      center:[],
-      zoom:13,
-      updateSuperState: obj=>{
-        this.setState(obj);
-      }
-    };
-  }
-  /* function to close all open markers (effectively removes the visable infowindow and stops the bounce animation) */
-  closeAllMarkers = () =>{
-      const markers = this.state.markers.map(marker=>{
-        marker.isOpen = false;
-        return marker;
-      });
-      this.setState({markers: Object.assign(this.state.markers,markers)});
-  } ;
-/* closes all markers upon clicking 1 of them so multiple infowindows do not display at once*/
-  handleMarkerClick = marker =>{
-    this.closeAllMarkers();
-    marker.isOpen = true;
-    this.setState({markers:Object.assign(this.state.markers,marker)});
-/* gathers information from foursquare api upon clicking the marker, to pass said information to other components*/
-    const venue =  this.state.venues.find(venue => venue.id === marker.id);
-    SquareAPI.getVenueDetails(marker.id).then(res=>{
-      const newVenue = Object.assign(venue, res.response.venue);
-      this.setState({venues:Object.assign(this.state.venues, newVenue)});
-    });
-  };
-  /* allow clicking list items to activate map marker infowindow and animation */
-  handleListItemClick = venue =>{
-    const marker = this.state.markers.find(marker => marker.id=== venue.id);
-    this.handleMarkerClick(marker);
-  }
-  /* use foursquare api to search for venues of specified query near specified locaiton*/
-  componentDidMount(){
-    SquareAPI.search({
-      near: "Whitby,ON",
-      query: "burger",
-      limit: 10
-    }).then(results =>{
-        /* provide information from foursquare results for other components to use and display*/
-      const {venues} = (results!= null ? results.response : "Foursquare load issue");
-      const {center} = (results!= null ? results.response.geocode.feature.geometry : "Foursquare load issue");
-      const markers = venues.map(venue =>{
-        return{
-          lat:venue.location.lat,
-          lng:venue.location.lng,
-          isOpen:false,
-          isVisible:true,
-          id:venue.id
-        };
-      });
-      this.setState({venues,center,markers});
-    });
-  }
-  /* render map and sidebar components in section below header */
-  render() {
-    return (
-      <section className="App">
-      <SideBar {...this.state} handleListItemClick={this.handleListItemClick}/>
-        <Map {...this.state}
-        handleMarkerClick={this.handleMarkerClick}/>
-      </section>
+import React,{Component} from "react";
+import { withScriptjs, withGoogleMap, GoogleMap, Marker,InfoWindow } from "react-google-maps";
+
+const mapStyles = require("./mapStyles.json");
+/* Initiate base settings for google map object including base zoom and center point */
+const MyMapComponent = withScriptjs(
+  withGoogleMap(props =>(
+  <GoogleMap
+    defaultZoom={14}
+    zoom={props.zoom}
+    defaultCenter={{lat: 43.897545, lng: -78.942932}}
+    defaultOptions={{ styles: mapStyles,
+      streetViewControl: false,
+      scaleControl: false,
+      mapTypeControl: false,
+      panControl: false,
+      zoomControl: false,
+      rotateControl: false,
+      fullscreenControl: false }}
+  >
+/* Initiate base settings for marker information and provide venue information from foursquare API via an infowindow when the marker is opened by click */
+    {props.markers &&
+      props.markers.filter(marker=>marker.isVisible).map((marker,idx)=>{
+        const venueInfo = props.venues.find(venue => venue.id===marker.id);
+      return (
+         <Marker
+       key={idx}
+        position={{ lat: marker.lat, lng: marker.lng }}
+         onClick={()=>props.handleMarkerClick(marker)}
+         animation={marker.isOpen === true ? google.maps.Animation.BOUNCE : google.maps.Animation.DROP}
+         options={{icon:"http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}}
+         >
+        {marker.isOpen &&(
+        <InfoWindow>
+        <React.Fragment>
+        <h2 tabIndex="4">{venueInfo.name !== undefined ? venueInfo.name : "Foursquare load issue"}</h2>
+          <p tabIndex="4">{venueInfo.location.address !== undefined ? venueInfo.location.address : "Foursquare load issue"}</p>
+          <a href={`${venueInfo.canonicalUrl !== undefined ? venueInfo.canonicalUrl : "Foursquare load issue"}`}><img tabIndex="4" style={{width:125, height:10}}src={require('./fs.png')} alt={"Foursquare attribute"}/></a>
+          </React.Fragment>
+        </InfoWindow>
+      )}
+      </Marker>
     );
+  })}
+  </GoogleMap>
+))
+);
+export default class Map extends Component{
+  render(){
+    return(<MyMapComponent
+      {...this.props}
+      tabIndex="-1"
+      googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAjtvbvM08TzCn66vzA4eD1W6HSLS1lOZk"
+      loadingElement={<div style={{ height: `100%` }} />}
+      containerElement={<div style={{ height: `100%`, width:`100%` }} />}
+      mapElement={<div style={{ height: `100%` }} />}
+    />)
   }
 }
-
-export default App;
