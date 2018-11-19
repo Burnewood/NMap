@@ -51,8 +51,8 @@ class App extends Component {
       limit: 10
     }).then(results =>{
         /* provide information from foursquare results for other components to use and display*/
-      const {venues} = results.response;
-      const {center} = results.response.geocode.feature.geometry;
+      const {venues} = {results.response != null ? results.response : "Foursquare load issue"};
+      const {center} = {results.response.geocode.feature.geometry != null ? results.response.geocode.feature.geometry : "Foursquare load issue"};
       const markers = venues.map(venue =>{
         return{
           lat:venue.location.lat,
@@ -63,7 +63,6 @@ class App extends Component {
         };
       });
       this.setState({venues,center,markers});
-      console.log(results);
     });
   }
   /* render map and sidebar components in section below header */
