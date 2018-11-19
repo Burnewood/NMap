@@ -35,9 +35,9 @@ const MyMapComponent = withScriptjs(
         {marker.isOpen &&(
         <InfoWindow>
         <React.Fragment>
-        <h2 tabIndex="4">{venueInfo.name}</h2>
-          <p tabIndex="4">{venueInfo.location.address}</p>
-          <a href={`${venueInfo.canonicalUrl}`}><img tabIndex="4" style={{width:125, height:10}}src={require('./fs.png')} alt={"Foursquare attribute"}/></a>
+        <h2 tabIndex="4">{venueInfo.name != undefined ? venueInfo.name : "Foursquare load issue"}</h2>
+          <p tabIndex="4">{venueInfo.location.address != undefined ? venueInfo.location.address : "Foursquare load issue"}</p>
+          <a href={`${venueInfo.canonicalUrl != undefined ? venueInfo.canonicalUrl : "Foursquare load issue"}`}><img tabIndex="4" style={{width:125, height:10}}src={require('./fs.png')} alt={"Foursquare attribute"}/></a>
           </React.Fragment>
         </InfoWindow>
       )}
