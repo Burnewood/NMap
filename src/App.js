@@ -62,7 +62,9 @@ class App extends Component {
         };
       });
       this.setState({venues,center,markers});
-    });
+    }).catch(function() {
+          alert('Foursquare API has failed to load');
+      });
   }
   /* render map and sidebar components in section below header */
   render() {
