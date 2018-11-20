@@ -31,7 +31,10 @@ class Helper {
       urlPrams
     )}`,
       requestData
-  ).then(res => res.json());
+  ).then(res => res.json())
+  .catch(function(error) {
+    alert('Foursquare API has failed to load');
+  });
   }
 }
 export default class SquareAPI {
