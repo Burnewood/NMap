@@ -52,7 +52,7 @@ export default class Map extends Component{
     return(<MyMapComponent
       {...this.props}
       tabIndex="-1"
-      googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAjtvbvM08TzCn66vzA4eD1W6HSLS1lOZk"
+      googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&key="
       loadingElement={<div style={{ height: `100%` }} />}
       containerElement={<div style={{ height: `100%`, width:`100%` }} />}
       mapElement={<div style={{ height: `100%` }} />}
